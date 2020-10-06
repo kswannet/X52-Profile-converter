@@ -1,3 +1,17 @@
+#  Copyright 2020 Swannet, Kilian
+
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+
+#        http://www.apache.org/licenses/LICENSE-2.0
+
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
 import re
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
@@ -124,7 +138,7 @@ class gui(tk.Tk):
         new_path = re.sub("{}{}".format(file_name, '.pr0'), new_file, self.file_path.get())
 
 
-        encoded_text = open(self.file_path.get(), 'rb').read()                  #read in binary mode to get the BOM correctly
+        encoded_text = open(self.file_path.get(), 'rb').read()  #read in binary mode to get the BOM correctly
         bom= codecs.BOM_UTF16_LE                                #print dir(codecs) for other encodings
         assert encoded_text.startswith(bom)                     #make sure the encoding is as expected
         # encoded_text= encoded_text[len(bom):]                 #strip away the BOM
