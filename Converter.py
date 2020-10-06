@@ -37,7 +37,7 @@ class gui(tk.Tk):
         self.done_label = tk.Label(self, textvariable=self.status).grid(row=2,
                                                                 column=1,
                                                                 padx=10,
-                                                                sticky=tk.W)                                                                
+                                                                sticky=tk.W)
 
 
     # ****************** ENTRIES ******************
@@ -120,7 +120,7 @@ class gui(tk.Tk):
     def convert(self):
         # path = r'C:/Users/Public/Documents/Logitech/X52/F-15C original.pr0'
         file_name = re.search(r'[^/]+(?=\.pr0$)', self.file_path.get()).group(0)
-        new_file = file_name + "_X52_converted.pr0"
+        new_file = file_name + "_converted.pr0"
         new_path = re.sub("{}{}".format(file_name, '.pr0'), new_file, self.file_path.get())
 
 
@@ -148,9 +148,9 @@ class gui(tk.Tk):
         text = re.sub(r"\[button=0x00090011 name='Wheel Scroll Up'\]\r\n\s*\[button=0x00090012 name='Wheel Scroll Down'\]",
                     r"[button=0x00090012 name='Wheel Scroll Down']\r\n        [button=0x00090011 name='Wheel Scroll Up']",
                     text)
-        text = re.sub(r"0x00010033", r"tempval", text) 
+        text = re.sub(r"0x00010033", r"tempval", text)
         text = re.sub(r"0x00010034", r"0x00010033", text)
-        text = re.sub(r"tempval", r"0x00010034", text) 
+        text = re.sub(r"tempval", r"0x00010034", text)
 
         text = re.sub(r"0x00090011", r"0x00090022", text)
         text = re.sub(r"0x00090012", r"0x00090021", text)
@@ -163,7 +163,7 @@ class gui(tk.Tk):
         text = re.sub(r"0x0009001D", r"0x00090019", text)
         text = re.sub(r"'POV 1' way=5", r"'POV Hat 1'", text)
 
-        text = re.sub(r"\[axis=0x00010032 name=Throttle\]\r\n\s*\[axis=0x00010035 name=Twist\]", 
+        text = re.sub(r"\[axis=0x00010032 name=Throttle\]\r\n\s*\[axis=0x00010035 name=Twist\]",
                     r"[axis=0x00010035 name=Twist]\r\n        [axis=0x00010032 name=Throttle]",
                     text)
         text = re.sub(r"Twist", r"Rudder", text)
@@ -182,7 +182,7 @@ class gui(tk.Tk):
         outfile = codecs.open(new_path, 'w+', encoding='utf-16-le')
         outfile.write(text)
 
-        self.status.set('Done!\nFile created: {}'.format(new_file))
+        self.status.set('Done!\nFile created: {}\n\n Note that the driver software may cause the stick to disconnect if the profile file name contains numbers.\n To avoid this remove all numbers from the .pr0 filename!!!'.format(new_file))
 
 
 if __name__ == "__main__":
